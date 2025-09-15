@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Risk Analysis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("https://img.freepik.com/free-photo/calculator-money-notepad-orange-background-copy-space_169016-24503.jpg") no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 40px;
+            border-radius: 20px;
+            display: inline-block;
+            width: 500px; /* Fixed width */
+            height: 500px; /* Fixed height to make it square */
+            max-width: 95%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            overflow-y: auto; /* Add scrolling if content overflows */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        h1 {
+            font-size: 32px; /* Reduced from 40px to fit in square */
+            margin-bottom: 20px;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .result {
+            font-size: 30px; /* Reduced from 36px */
+            margin: 15px 0;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .details {
+            font-size: 18px; /* Reduced from 22px */
+            margin-top: 15px;
+            text-align: left;
+            line-height: 1.5;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 12px;
+            color: #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex-grow: 1; /* Allow this section to grow */
+            overflow-y: auto; /* Add scrolling if needed */
+        }
+
+        .details p {
+            margin: 10px 0;
+        }
+        
+        .back-button {
+            background: linear-gradient(90deg, #4e54c8, #8f94fb);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .back-button:hover {
+            background: linear-gradient(90deg, #8f94fb, #4e54c8);
+            transform: scale(1.05);
+        }
+        
+        .approved {
+            color: #0a9e01;
+        }
+        
+        .rejected {
+            color: #d10606;
+        }
+        
+        .analysis {
+            border-top: 1px solid #ccc;
+            padding-top: 15px;
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 16px;
+        }
+
+        .content-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <div>
+                <h1>Loan Risk Analysis Result</h1>
+
+                <div class="result {% if 'High' in prediction %}rejected{% else %}approved{% endif %}">
+                    {% if 'High' in prediction %}
+                        ❌ Loan Rejected
+                    {% else %}
+                        ✅ Loan Approved
+                    {% endif %}
+                </div>
+
+                <div class="details">
+                    {% for feature, value in input_values.items() %}
+                    <p><b>{{ feature.replace('_', ' ').title() }}:</b> {{ value }}</p>
+                    {% endfor %}
+                    
+                    {% if message %}
+                    <p class="analysis"><b>Analysis:</b> {{ message }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <a href="/" class="back-button">Try Another Prediction</a>
+        </div>
+    </div>
+</body>
+</html>
